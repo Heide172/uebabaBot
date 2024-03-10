@@ -21,5 +21,5 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Docker Compose Build and Run
-        working-directory: ./Uebaba_bot
+        working-directory: ./uebabaBot
         run: docker-compose up
