@@ -1,5 +1,7 @@
 import asyncio
 import logging
+import os
+
 
 from aiogram import Bot, Dispatcher
 from aiogram.enums.parse_mode import ParseMode
@@ -7,6 +9,13 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 import config
 from handlers import router
+def secrets_update():
+    secrets = {
+    "BOT_TOKEN": os.environ.get("BOT_TOKEN"),
+    "CON_URL": os.environ.get("CON_URL")
+    }
+    config.BOT_TOKEN=secrets["BOT_TOKEN"]
+    config.CON_URL=secrets["CON_URL"]
 
 
 async def main():

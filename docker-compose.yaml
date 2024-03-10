@@ -1,13 +1,16 @@
 services:
   Python_bot:
     build: ./Python_bot
+    environment:
+      - BOT_TOKEN: ${BOT_TOKEN}
+      - DB_URL: ${CON_URL}
     depends_on:
       - postgres
   postgres:
     image: postgres:13.3
     environment:
-      POSTGRES_DB: "NEEDTOCHANGE"
-      POSTGRES_USER: "NEEDTOCHANGE"
-      POSTGRES_PASSWORD: "NEEDTOCHANGE"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
