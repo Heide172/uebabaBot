@@ -2,7 +2,7 @@ FROM python:latest
 
 WORKDIR /Python_bot
 
-COPY * .
+COPY * ./
 RUN ls
 
 RUN pip install -r requirements.txt
