@@ -1,6 +1,6 @@
 services:
-  Python_bot:
-    build: ./Python_bot
+  PythonBot:
+    build: ./PythonBot
     environment:
       - BOT_TOKEN: ${BOT_TOKEN}
       - DB_URL: ${CON_URL}
