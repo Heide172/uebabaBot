@@ -1,5 +1,5 @@
 services:
-  PythonBot:
+  python_bot:
     build: ./python_bot
     env_file:
       - .env
