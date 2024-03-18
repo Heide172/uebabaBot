@@ -1,6 +1,6 @@
 FROM python:latest
 
-WORKDIR /Python_bot
+WORKDIR /python_bot
 
 COPY * ./
 RUN ls
