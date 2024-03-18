@@ -1,9 +1,8 @@
 services:
   PythonBot:
     build: ./PythonBot
-    environment:
-      - BOT_TOKEN: ${BOT_TOKEN}
-      - DB_URL: ${CON_URL}
+    env_file:
+      - .env
     depends_on:
       - postgres
   postgres:
