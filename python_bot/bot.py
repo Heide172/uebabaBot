@@ -67,10 +67,10 @@ async def cmd_dice(message: types.Message, bot: Bot):
     await bot.send_dice(message.chat.id, emoji=DiceEmoji.DICE)
 
 @dp.message(Command("joke"))
-async def joke_command(message: types.Message, bot: Bot):
+async def joke_command(message: types.Message):
     reply = get_joke()
     await message.answer(text=reply)
-
+    
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
