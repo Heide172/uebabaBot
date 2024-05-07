@@ -6,6 +6,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
 from aiogram import Router
 from aiogram.filters import Filter
+from aiogram import F
 from aiogram.types import Message
 from aiogram.enums.dice_emoji import DiceEmoji
 from db import BotDatabase
@@ -18,13 +19,6 @@ bot = Bot(token=config.BOT_TOKEN.get_secret_value())
 dp = Dispatcher()
 #База данных бота
 db = BotDatabase('database.db')
-#Фильтр
-class TextFilter(Filter):
-    def __init__(self, my_text: str) -> None:
-        self.my_text = my_text
-
-    async def __call__(self, message: Message) -> bool:
-        return message.text == self.my_text
 
 
 # Хэндлер на команду /start
@@ -82,7 +76,7 @@ async def joke_command(message: types.Message):
     reply = get_joke()
     await message.answer(text=reply)
     
-@dp.message(TextFilter('увы'))
+@dp.message(F.text.contains('увы'))
 async def yvy_command(message: types.Message):
     await message.answer(text='увы')
 # Запуск процесса поллинга новых апдейтов
