@@ -82,7 +82,7 @@ async def yvy_command(message: types.Message):
     if (random.randrange(0,100) == 0):   
         await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
     else:
-        await message.message.answer(text='увы')
+        await message.answer(text='увы')
 
     
 # Запуск процесса поллинга новых апдейтов
