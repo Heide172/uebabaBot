@@ -71,6 +71,10 @@ async def joke_command(message: types.Message):
     reply = get_joke()
     await message.answer(text=reply)
     
+@dp.message(Command("увы"))
+async def joke_command(message: types.Message):
+    await message.answer(text='увы')
+    
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
