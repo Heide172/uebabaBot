@@ -6,7 +6,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
 from aiogram.enums.dice_emoji import DiceEmoji
 from db import BotDatabase
-
+from user_agent import get_joke
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(filename='logs.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 # Объект бота
@@ -19,7 +19,7 @@ db = BotDatabase('database.db')
 # Хэндлер на команду /start
 @dp.message(Command("start"))
 async def start_command(message: types.Message):
-    await message.answer(message.from_user.full_name)
+    await message.answer('Start')
     
 @dp.message(Command("in"))
 async def in_command(message: types.Message):
@@ -66,6 +66,10 @@ async def stats_command(message: types.Message):
 async def cmd_dice(message: types.Message, bot: Bot):
     await bot.send_dice(message.chat.id, emoji=DiceEmoji.DICE)
 
+@dp.message(Command("joke"))
+async def joke_command(message: types.Message, bot: Bot):
+    reply = get_joke()
+    await message.answer(text=reply)
 
 # Запуск процесса поллинга новых апдейтов
 async def main():
