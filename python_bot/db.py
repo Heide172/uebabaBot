@@ -22,7 +22,18 @@ class BotDatabase:
             query = '''SELECT user_id, username FROM users'''
             cursor.execute(query)
             return cursor.fetchall()
-
+    def get_user_uvu_count(self, user_id):
+         with self.conn.cursor() as cursor:
+            query = '''SELECT user_id, username, uvu_count 
+                        FROM users 
+                        WHERE user_id=%s'''
+            cursor.execute(query, (user_id,))
+    def update_user_uvu_count(self, uvu_count, user_id):
+        with self.conn.cursor() as cursor:
+            sql_update_query = '''UPDATE users SET uvu_count = %s WHERE user_id = %s'''
+            cursor.execute(sql_update_query, (uvu_count, user_id))
+            self.conn.commit()
+        
     def get_users_from_chat(self, group_id):
         with self.conn.cursor() as cursor:
             query = '''SELECT c.user_id, u.username 
@@ -71,7 +82,7 @@ class BotDatabase:
     def _add_users_table(self):
         with self.conn.cursor() as cursor:
             query = '''CREATE TABLE IF NOT EXISTS 
-                                        users (user_id BIGINT, username VARCHAR(64), PRIMARY KEY (user_id))'''
+                                        users (user_id BIGINT, username VARCHAR(64), uvu_count INT, PRIMARY KEY (user_id))'''
             cursor.execute(query)
             self.conn.commit()
 

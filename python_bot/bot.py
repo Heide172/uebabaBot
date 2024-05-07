@@ -79,10 +79,16 @@ async def joke_command(message: types.Message):
     
 @dp.message(F.text.contains('увы'))
 async def yvy_command(message: types.Message):
-    if (random.randrange(0,100) == 0):   
-        await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
+    count = db.get_user_uvu_count(message.from_user.id)
+    if (count >= 20):
+        return
     else:
-        await message.answer(text='увы')
+        db.update_user_uvu_count(count + 1, message.from_user.id)
+        if (random.randrange(0,100) == 0):   
+            await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
+        else:
+            await message.answer(text='увы')
+    
 
     
 # Запуск процесса поллинга новых апдейтов
