@@ -1,1 +1,5 @@
-aiogram==3.4.1
+psycopg2==2.9.9
+urllib3==2.2.1
+aiogram==3.6.0
+python-dotenv==1.0.0
+pydantic-settings==2.2.1
