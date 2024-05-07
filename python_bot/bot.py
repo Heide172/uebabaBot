@@ -4,6 +4,9 @@ from config_reader import config
 from aiogram import Bot, Dispatcher, types
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
+from aiogram import Router
+from aiogram.filters import Filter
+from aiogram.types import Message
 from aiogram.enums.dice_emoji import DiceEmoji
 from db import BotDatabase
 from user_agent import get_joke
@@ -15,6 +18,14 @@ bot = Bot(token=config.BOT_TOKEN.get_secret_value())
 dp = Dispatcher()
 #База данных бота
 db = BotDatabase('database.db')
+#Фильтр
+class TextFilter(Filter):
+    def __init__(self, my_text: str) -> None:
+        self.my_text = my_text
+
+    async def __call__(self, message: Message) -> bool:
+        return message.text == self.my_text
+
 
 # Хэндлер на команду /start
 @dp.message(Command("start"))
@@ -71,10 +82,9 @@ async def joke_command(message: types.Message):
     reply = get_joke()
     await message.answer(text=reply)
     
-@dp.message(Command("увы"))
-async def joke_command(message: types.Message):
+@dp.message(TextFilter('увы'))
+async def yvy_command(message: types.Message):
     await message.answer(text='увы')
-    
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
