@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-from fake_useragent import UserAgent
 
 JOKE_URL = 'https://baneks.ru/random'
 
