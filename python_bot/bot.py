@@ -10,6 +10,7 @@ from aiogram import F
 from aiogram.types import Message
 from aiogram.enums.dice_emoji import DiceEmoji
 from db import BotDatabase
+import random
 from user_agent import get_joke
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(filename='logs.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -76,9 +77,14 @@ async def joke_command(message: types.Message):
     reply = get_joke()
     await message.answer(text=reply)
     
-@dp.message(F.text.contains(' увы '))
+@dp.message(F.text.contains('увы'))
 async def yvy_command(message: types.Message):
-    await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
+    if (random.randrange(0,100) == 0):   
+        await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
+    else:
+        await message.message.answer(text='увы')
+
+    
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
