@@ -24,7 +24,7 @@ class BotDatabase:
             return cursor.fetchall()
     def get_user_uvu_count(self, user_id):
          with self.conn.cursor() as cursor:
-            query = '''SELECT user_id, username, uvu_count 
+            query = '''SELECT uvu_count 
                         FROM users 
                         WHERE user_id=%s'''
             cursor.execute(query, (user_id,))
