@@ -3,5 +3,5 @@ urllib3==2.2.1
 aiogram==3.6.0
 python-dotenv==1.0.0
 pydantic-settings==2.2.1
-bs4==4.12.3
+beautifulsoup4==4.12.3
 requests==2.31.0
