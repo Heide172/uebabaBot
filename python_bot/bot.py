@@ -78,7 +78,7 @@ async def joke_command(message: types.Message):
     
 @dp.message(F.text.contains('увы'))
 async def yvy_command(message: types.Message):
-    await message.answer(text='увы')
+    await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
