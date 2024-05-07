@@ -5,7 +5,8 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
 from aiogram.enums.dice_emoji import DiceEmoji
 from aiogram.enums import ParseMode
-
+from user_agent import get_joke
+#ДЛЯ ЛОКАЛЬНОГО ТЕСТИРОВАНИЯ
 #from db import BotDatabase
 
 # Включаем логирование, чтобы не пропустить важные сообщения
@@ -64,7 +65,12 @@ async def stats_command(message: types.Message):
 @dp.message(Command("dice"))
 async def cmd_dice(message: types.Message, bot: Bot):
     await bot.send_dice(-100123456789, emoji=DiceEmoji.DICE)
-
+    
+@dp.message(Command("joke"))
+async def joke_command(message: types.Message):
+    reply = get_joke()
+    await message.answer(text=reply)
+    
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
