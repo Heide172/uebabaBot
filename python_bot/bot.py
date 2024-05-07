@@ -33,10 +33,10 @@ async def in_command(message: types.Message):
     
 @dp.message(Command("out"))
 async def out_command(message: types.Message):
-    chat_id = message.chat.id
-    user = message.from_user
-    db.delete_user_from_chat(chat_id, user.id)
-    await message.reply('You\'ve been opted out')
+    #chat_id = message.chat.id
+    #user = message.from_user
+    #db.delete_user_from_chat(chat_id, user.id)
+    await message.reply('No')
     
 @dp.message(Command("all"))
 async def all_command(message: types.Message):
