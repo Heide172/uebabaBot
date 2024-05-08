@@ -79,17 +79,22 @@ async def joke_command(message: types.Message):
     
 @dp.message(F.text.contains('увы'))
 async def yvy_command(message: types.Message):
-    count = db.get_user_uvu_count(message.from_user.id)
-    if (count >= 20):
-        return
-    else:
-        db.update_user_uvu_count(count + 1, message.from_user.id)
-        if (random.randrange(0,100) == 0): 
-            await message.answer(text=str(count))  
-            #await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
+    user = message.from_user
+    print('user')
+    try:
+        count = db.get_user_uvu_count(user.id)
+        if (count >= 20):
+            return
         else:
-            await message.answer(text=str(count)) 
-            #await message.answer(text='увы')
+            db.update_user_uvu_count(count + 1, user.id)
+            if (random.randrange(0,100) == 0): 
+                await message.answer(text=str(count))
+            else: 
+                await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE')
+    except Exception as e:
+        print(e) 
+    await message.answer(text=str(count)) 
+    
     
 
     

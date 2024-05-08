@@ -24,13 +24,17 @@ class BotDatabase:
             return cursor.fetchall()
         
     def get_user_uvu_count(self, user_id):
-         with self.conn.cursor() as cursor:
-            query = '''SELECT uvu_count 
-                        FROM users 
-                        WHERE user_id=%s'''
-            cursor.execute(query, (user_id))
-            return cursor.fetchall()
-         
+         try:
+            with self.conn.cursor() as cursor:
+                query = '''SELECT uvu_count 
+                            FROM users 
+                            WHERE user_id=%s'''
+                cursor.execute(query, (user_id,))
+                count = cursor.fetchone()[0]
+                return count
+         except Exception as e:
+             print(e)
+
     def update_user_uvu_count(self, uvu_count, user_id):
         with self.conn.cursor() as cursor:
             sql_update_query = '''UPDATE users SET uvu_count = %s WHERE user_id = %s'''
