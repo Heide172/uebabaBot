@@ -77,7 +77,7 @@ async def joke_command(message: types.Message):
     reply = get_joke()
     await message.answer(text=reply)
     
-@dp.message(F.text.lower.contains('увы'))
+@dp.message(F.text.lower().contains('увы'))
 async def yvy_command(message: types.Message):
     user = message.from_user
     print('user')
