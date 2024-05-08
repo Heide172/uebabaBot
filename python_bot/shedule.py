@@ -14,7 +14,7 @@ def uvu_count_update():
 
 
 
-schedule.every().day.at("10:40").do(uvu_count_update)
+schedule.every().day.at("10:45").do(uvu_count_update)
 
 while True:
     schedule.run_pending()
