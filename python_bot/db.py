@@ -41,10 +41,10 @@ class BotDatabase:
             cursor.execute(sql_update_query, (uvu_count, user_id))
             self.conn.commit()
 
-    def update_all_user_uvu_count(self, uvu_count):
+    def update_all_user_uvu_count(self):
         with self.conn.cursor() as cursor:
-            sql_update_query = '''UPDATE users SET uvu_count = %s'''
-            cursor.execute(sql_update_query, (uvu_count))
+            sql_update_query = '''UPDATE users SET uvu_count = 0'''
+            cursor.execute(sql_update_query)
             self.conn.commit()    
         
     def get_users_from_chat(self, group_id):
