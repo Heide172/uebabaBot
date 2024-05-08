@@ -6,7 +6,11 @@ from db import BotDatabase
 
 db = BotDatabase('database.db')
 def uvu_count_update():
-    db.update_all_user_uvu_count(0)
+    try:
+        db.update_all_user_uvu_count(0)
+        print('uvu_count updated for all')
+    except Exception as e:
+        print(e)
 
 
 
