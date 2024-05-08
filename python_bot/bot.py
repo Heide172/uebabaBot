@@ -89,7 +89,6 @@ async def yvy_command(message: types.Message):
             db.update_user_uvu_count(count + 1, user.id)
             if (random.randrange(0,100) == 0):
                 await message.answer_sticker(r'CAACAgIAAxkBAAEFQMRmOjyP3TzJgZwh9fHNMm8gGqaFtwACjS0AAiq1EUjDQfFev1DanzUE') 
-                
             else: 
                 await message.answer(text='увы')
     except Exception as e:
