@@ -11,4 +11,4 @@ RUN \
 
 COPY . .
 
-CMD ./wrapper_script.sh
+CMD sh ./wrapper_script.sh
