@@ -16,9 +16,13 @@ volumes:
     driver: local
 
 networks:
- default:
-   name: elastic
-   external: false
+  vpn:
+    name: vpn
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.7.0.0/24
+          gateway: 10.7.0.1
 
 services:
   setup:
@@ -75,7 +79,7 @@ services:
      interval: 1s
      timeout: 5s
      retries: 120
-     
+
   es01:
    depends_on:
      setup:
