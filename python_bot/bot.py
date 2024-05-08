@@ -94,7 +94,6 @@ async def yvy_command(message: types.Message):
                 await message.answer(text='увы')
     except Exception as e:
         print(e) 
-    await message.answer(text=str(count)) 
     
     
 
