@@ -11,10 +11,10 @@ class BotDatabase:
         self._add_users_table()
         self._add_chats_table()
 
-    def add_user(self, user_id, username):
+    def add_user(self, user_id, username, uvu_count):
         with self.conn.cursor() as cursor:
-            query = '''INSERT INTO users (user_id, username) VALUES (%s, %s) ON CONFLICT (user_id) do UPDATE SET username = %s'''
-            cursor.execute(query, (user_id, username, username))
+            query = '''INSERT INTO users (user_id, username, uvu_count) VALUES (%s, %s, %s) ON CONFLICT (user_id) do UPDATE SET username = %s'''
+            cursor.execute(query, (user_id, username, uvu_count, username))
             self.conn.commit()
 
     def get_all_users(self):
