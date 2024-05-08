@@ -22,12 +22,15 @@ class BotDatabase:
             query = '''SELECT user_id, username FROM users'''
             cursor.execute(query)
             return cursor.fetchall()
+        
     def get_user_uvu_count(self, user_id):
          with self.conn.cursor() as cursor:
             query = '''SELECT uvu_count 
                         FROM users 
                         WHERE user_id=%s'''
-            cursor.execute(query, (user_id,))
+            cursor.execute(query, (user_id))
+            return cursor.fetchall()
+         
     def update_user_uvu_count(self, uvu_count, user_id):
         with self.conn.cursor() as cursor:
             sql_update_query = '''UPDATE users SET uvu_count = %s WHERE user_id = %s'''
@@ -40,7 +43,7 @@ class BotDatabase:
                         FROM chats c 
                         JOIN users u on c.user_id = u.user_id 
                         WHERE c.chat_id=%s'''
-            cursor.execute(query, (group_id,))
+            cursor.execute(query, (group_id))
             return cursor.fetchall()
 
     def add_user_to_chat(self, chat_id, user_id):
