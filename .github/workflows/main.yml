@@ -11,14 +11,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Create .env file
-        uses: SpicyPizza/create-envfile@v2.0.3
-        with:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CON_URL: ${{ secrets.CON_URL }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          directory: .
+      - name: Docker Compose stop
+        run: docker-compose down
       - name: Docker Compose Build and Run
         run: docker-compose up
