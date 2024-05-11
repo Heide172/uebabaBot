@@ -46,17 +46,20 @@ async def out_command(message: types.Message):
     
 @dp.message(Command("all"))
 async def all_command(message: types.Message):
-    chat_id = message.chat.id
-    user_list = db.get_users_from_chat(chat_id)
-    logging.info('/all called, chat_id=%s user_count=%s', chat_id, len(user_list))
-    if not user_list:
-        message = 'There are no users. To opt in type /in command'
-        await message.reply(text=message)
-    else:
-        mentions = [mention_markdown(user_id, user_name)
-                    for user_id, user_name in user_list]
-        
-        await message.answer(text=str(mentions), parse_mode=ParseMode.MARKDOWN_V2)
+    try:
+        chat_id = message.chat.id
+        user_list = db.get_users_from_chat(chat_id)
+        logging.info('/all called, chat_id=%s user_count=%s', chat_id, len(user_list))
+        if not user_list:
+            message = 'There are no users. To opt in type /in command'
+            await message.reply(text=message)
+        else:
+            mentions = [mention_markdown(user_id, user_name)
+                        for user_id, user_name in user_list]
+            
+            await message.answer(text=str(mentions), parse_mode=ParseMode.MARKDOWN_V2)
+    except Exception as e:
+        print(e)
         
 def mention_markdown(user_id, user_name):
     return "["+user_name+"](tg://user?id="+str(user_id)+")"

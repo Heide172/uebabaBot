@@ -54,7 +54,9 @@ class BotDatabase:
                         JOIN users u on c.user_id = u.user_id 
                         WHERE c.chat_id=%s'''
             cursor.execute(query, (group_id))
-            return cursor.fetchall()
+            users = cursor.fetchall()
+            print(users)
+            return users
 
     def add_user_to_chat(self, chat_id, user_id):
         with self.conn.cursor() as cursor:
