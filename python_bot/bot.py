@@ -46,6 +46,7 @@ async def out_command(message: types.Message):
     
 @dp.message(Command("all"))
 async def all_command(message: types.Message):
+    print('all executed')
     try:
         chat_id = message.chat.id
         user_list = db.get_users_from_chat(chat_id)
