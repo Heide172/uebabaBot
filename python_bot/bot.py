@@ -55,7 +55,7 @@ async def xui_command(message: types.Message):
         answer = 'Член %s длиной %s см', user_name, size 
         await message.answer(text = answer)
     except Exception as e:
-        await message.answer(text='e')
+        await message.answer(text=e)
 # Хэндлер на команду /start
 @dp.message(Command("start"))
 async def start_command(message: types.Message):
