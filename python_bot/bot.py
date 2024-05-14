@@ -84,8 +84,8 @@ async def stats_command(message: types.Message):
     user = message.from_user
     reply = f'users: {db.count_users()[0]}\n' \
               f'chats: {db.count_chats()[0]}\n' \
-              f'groups: {db.count_groups()[0]}' \
-              f'увы {db.get_user_uvu_count(user.id)}'
+              f'groups: {db.count_groups()[0]}\n' \
+              f'увы: {db.get_user_uvu_count(user.id)}'
     await message.answer(text=reply)
     
 @dp.message(Command("dice"))
