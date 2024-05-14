@@ -54,26 +54,26 @@ async def xui_command(message: types.Message):
 async def start_command(message: types.Message):
     await message.answer('Start')
 
-@dp.message(Command("in"))
-async def in_command(message: types.Message):
-    try:
-        chat_id = message.chat.id
-        user = message.from_user
-        logging.info('/in called, chat_id=%s user_id=%s', chat_id, user.id)
-        user_name = user.username or user.first_name or 'anonymous'
-        db.add_user(user.id, user_name, 0)
-        db.add_user_to_chat(chat_id, user.id)
-        await message.reply('Thanks for opting in')
-    except Exception as e:
-        await message.answer(exception_handler(e))
+# @dp.message(Command("in"))
+# async def in_command(message: types.Message):
+#     try:
+#         chat_id = message.chat.id
+#         user = message.from_user
+#         logging.info('/in called, chat_id=%s user_id=%s', chat_id, user.id)
+#         user_name = user.username or user.first_name or 'anonymous'
+#         db.add_user(user.id, user_name, 0)
+#         db.add_user_to_chat(chat_id, user.id)
+#         await message.reply('Thanks for opting in')
+#     except Exception as e:
+#         await message.answer(exception_handler(e))
 
     
-@dp.message(Command("out"))
-async def out_command(message: types.Message):
-    #chat_id = message.chat.id
-    #user = message.from_user
-    #db.delete_user_from_chat(chat_id, user.id)
-    await message.reply('No')
+# @dp.message(Command("out"))
+# async def out_command(message: types.Message):
+#     chat_id = message.chat.id
+#     user = message.from_user
+#     db.delete_user_from_chat(chat_id, user.id)
+#     await message.reply('No')
     
 
 def mention_markdown(user_id, user_name):
