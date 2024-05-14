@@ -18,11 +18,14 @@ class BotDatabase:
             self.conn.commit()
 
     def get_all_users(self):
-        with self.conn.cursor() as cursor:
-            query = '''SELECT user_id, username FROM users'''
-            cursor.execute(query)
-            return cursor.fetchall()
-        
+        try:
+            with self.conn.cursor() as cursor:
+                query = '''SELECT user_id, username FROM users'''
+                cursor.execute(query)
+                return cursor.fetchall()
+        except Exception as e:
+            print(e, __file__)
+            
     def get_user_uvu_count(self, user_id):
          try:
             with self.conn.cursor() as cursor:
@@ -33,7 +36,7 @@ class BotDatabase:
                 count = cursor.fetchone()[0]
                 return count
          except Exception as e:
-             print(e)
+            raise
 
     def update_user_uvu_count(self, uvu_count, user_id):
         with self.conn.cursor() as cursor:

@@ -11,4 +11,5 @@ RUN \
 
 COPY . .
 
-CMD sh ./wrapper_script.sh
+#CMD sh ./wrapper_script.sh
+CMD [ "python3", "bot.py"]
