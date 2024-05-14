@@ -2,7 +2,7 @@ version: "3.8"
 
 volumes:
   postgres-data:
-
+  
 services:
   python_bot:
     build: ./python_bot
