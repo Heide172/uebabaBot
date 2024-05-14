@@ -47,12 +47,15 @@ async def all_command(message: types.Message):
 
 @dp.message(Command("hui"))
 async def xui_command(message: types.Message):
-    user = message.from_user
-    user_name = user.username or user.first_name or 'anonymous'
-    size = db.get_user_uvu_count(user.id) + 1 / 1000
-    db.update_user_uvu_count(size*1000, user.id)
-    await message.answer('Член %s длиной %s см', user_name, size )
-
+    try:
+        user = message.from_user
+        user_name = user.username or user.first_name or 'anonymous'
+        size = db.get_user_uvu_count(user.id) + 1 / 1000
+        db.update_user_uvu_count(size*1000, user.id)
+        answer = 'Член %s длиной %s см', user_name, size 
+        await message.answer(text = answer)
+    except Exception as e:
+        await message.answer(text='e')
 # Хэндлер на команду /start
 @dp.message(Command("start"))
 async def start_command(message: types.Message):
