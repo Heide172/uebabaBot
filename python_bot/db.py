@@ -100,7 +100,7 @@ class BotDatabase:
     def _add_users_table(self):
         with self.conn.cursor() as cursor:
             query = '''CREATE TABLE IF NOT EXISTS 
-                                        users (user_id BIGINT, username VARCHAR(64), uvu_count INT, PRIMARY KEY (user_id))'''
+                                        users (user_id BIGINT, username VARCHAR(64), uvu_count REAL, PRIMARY KEY (user_id))'''
             cursor.execute(query)
             self.conn.commit()
 
