@@ -30,7 +30,7 @@ jobs:
       - name: test
         run: docker run ${{ env.IMAGE_NAME }}
   push_to_registry:
-    needs: test
+    needs: build
     name: push_to_registry
     runs-on: ubuntu-latest
     steps:
