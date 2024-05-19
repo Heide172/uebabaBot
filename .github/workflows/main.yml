@@ -20,16 +20,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: build
       run: docker build -t ${{ env.IMAGE_NAME }} ./python_bot --no-cache --force-rm 
   test:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
-      - name: Test the Docker image
+      - name: test
         run: docker run ${{ env.IMAGE_NAME }}
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    needs: test
+    name: push_to_registry
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
