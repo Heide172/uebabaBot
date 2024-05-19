@@ -43,7 +43,7 @@ class BotDatabase:
             sql_update_query = '''UPDATE users SET uvu_count = %s WHERE user_id = %s'''
             cursor.execute(sql_update_query, (uvu_count, user_id))
             self.conn.commit()
-
+ 
     def update_all_user_uvu_count(self):
         with self.conn.cursor() as cursor:
             sql_update_query = '''UPDATE users SET uvu_count = 0'''
