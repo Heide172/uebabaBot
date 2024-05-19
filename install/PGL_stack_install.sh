@@ -1,37 +1,9 @@
-#!/bin/bash
-while getopts u:p
-do
-    case "${flag}" in
-        u) username=${OPTARG};;
-        p) password=${OPTARG};;
-    esac
-done
-#BASE INSTALL DOKKU
-# for debian systems, installs Dokku via apt-get
-wget -NP . https://dokku.com/install/v0.34.4/bootstrap.sh
-sudo DOKKU_TAG=v0.34.4 bash bootstrap.sh
-
-#add ssh key to dokku
-cat ~/.ssh/authorized_keys | dokku ssh-keys:add admin
-
-#add domain name to dokku
-dokku domains:set-global uebaba.xyloz.ru
-
-#INSTALL AND INIT USED PLUGINS TO DOKKU:
-#1. postgres
-sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git postgres
-dokku postgres:create uebaba_bot_db
-#2. http-auth
-dokku plugin:install https://github.com/dokku/dokku-http-auth.git
-#3. lets-encrypt
-dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
-
 #INSTALLING PROMETHEUS/GRAFANA/LOKI STACK
 #Create bridged network
 dokku network:create prometheus-bridge
 #Create pronetheus app
 dokku apps:create prometheus
-dokku proxy:ports-add prometheus http:80:9090
+dokku ports:add prometheus http:80:9090
 #Create a volumes for data
 mkdir -p /var/lib/dokku/data/storage/prometheus/{config,data}
 touch /var/lib/dokku/data/storage/prometheus/config/{alert.rules,prometheus.yml}
@@ -48,7 +20,8 @@ dokku config:set --no-restart prometheus DOKKU_DOCKERFILE_START_CMD="--config.fi
   --storage.tsdb.no-lockfile"
 dokku network:set prometheus attach-post-deploy prometheus-bridge
 #Move prometheus config file
-cat config/prometheus.yml | sed 's/<username>/'"$username"' s/<password>/'"$password"'' > config/prometheus.yml
+sed -i "s|'<username>'|${username} s|'<password>'|${paswword}"
+sed -i "s|'<username>'|'moe' s|'<password>'|'Crjhjcnm1#'"
 mv config/prometheus.yml /var/lib/dokku/data/storage/prometheus/config/prometheus.yml
 #Deploy prometheus image
 docker pull prom/prometheus:latest
@@ -124,16 +97,16 @@ dokku storage:mount promtail /var/lib/dokku/data/storage/promtail/config:/etc/pr
 dokku storage:mount promtail /var/log:/var/log
 #Attach to bridge network
 dokku network:set promtail attach-post-deploy prometheus-bridge
-#Move Loki config file
+#Move Promtail config file
 mv config/promtail-config.yaml /var/lib/dokku/data/storage/promtail/config/promtail-config.yaml
 #Deploy Promtail
 docker image pull grafana/promtail:2.0.0
 docker image tag grafana/promtail:2.0.0 dokku/promtail:latest
-dokku tags:deploy promtail latest
+dokku git:from-image promtail grafana/promtail
 dokku domains:disable promtail
 #Setup grafana
 dokku apps:create grafana
-dokku proxy:ports-add grafana http:80:3000
+dokku ports:add grafana http:80:3000
 #Set the storage and config mounts
 mkdir -p /var/lib/dokku/data/storage/grafana/{config,data,plugins}
 mkdir -p /var/lib/dokku/data/storage/grafana/config/provisioning/datasources
