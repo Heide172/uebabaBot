@@ -17,13 +17,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    working-directory: ./python_bot
     steps:
     - uses: actions/checkout@v3
     - name: build
-      run: docker build -t ${{ env.IMAGE_NAME }} ./python_bot --no-cache --force-rm 
+      run: docker build -t ${{ env.IMAGE_NAME }} . --no-cache --force-rm 
   test:
     runs-on: ubuntu-latest
+    working-directory: ./python_bot
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -31,6 +32,7 @@ jobs:
         run: docker run ${{ env.IMAGE_NAME }}
   push_to_registry:
     needs: build
+    working-directory: ./python_bot
     name: push_to_registry
     runs-on: ubuntu-latest
     steps:
